@@ -124,7 +124,7 @@ class CommentsController extends Controller
         return redirect('/profile');
     }
     
-    //リプライ画面
+    //リプライ表示画面
     public function reply(Comment $comments){
 
         //リプライ一覧用データ
@@ -165,12 +165,17 @@ class CommentsController extends Controller
     //コメント削除
     public function destroy(Comment $comment){
         $comment->delete();
+        
         return redirect('/profile');
     }
     
     //リプライ削除
     public function remove(Reply $reply){
         $reply->delete();
-        return redirect('/');
+
+        $comments = Comment::find($reply->reply_comment_id);
+        $comments->decrement('reply_num');
+        
+        return redirect('/commentreply/'.$comments->id);
     }
 }

@@ -30,14 +30,14 @@ Route::post('/comments/update','CommentsController@update');
 //コメントを削除　★要追加　関連返信
 Route::delete('/comment/{comment}','CommentsController@destroy');
 
+//リプライを削除
+Route::delete('/commentreply/remove/{reply}','CommentsController@remove');
+
 //リプライ画面へ移動
 Route::get('/commentreply/{comments}','CommentsController@reply')->name('reply');
 
 //リプライ登録処理
 Route::post('/commentreply/reply/{comments}','CommentsController@exeReply');
-
-//リプライを削除
-Route::delete('/commentreply/remove/{reply}','CommentsController@remove');
 
 Auth::routes();
 Route::get('/home','CommentsController@index')->name('home');

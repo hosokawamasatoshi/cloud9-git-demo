@@ -51,6 +51,8 @@
                             <div>{{ $reply->user->name }}さん {{ $reply->created_at }}</div>
                             <div>{{ $reply->reply_comment }}</div>
                         </td>
+
+                        <!-- 本: 削除ボタン -->
                         @if($reply->user->id === Auth::id())
                         <td>
                             <form action="{{ url('/commentreply/remove/'.$reply->id) }}" method="POST">
