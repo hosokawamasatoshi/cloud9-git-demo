@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Comment;
 use App\Reply;
+use App\User;
+use App\Charts\UserChart;
 use Validator;
 use Auth;
 
-class CommentsController extends Controller
-{
-    public function __construct()
-    {
+class CommentsController extends Controller{
+    public function __construct(){
         //認証していたら表示する
         $this->middleware('auth');
     }
@@ -27,9 +27,23 @@ class CommentsController extends Controller
 
     //プロフィール画面
     public function profile(){
+        // $users = User::select(\DB::raw("COUNT(*) as count"))
+        //     ->whereYear('created_at', date('Y'))
+        //     ->groupBy(\DB::raw("Month(created_at)"))
+        //     ->pluck('count');
+            
+        // $chart = new UserChart;
+        // $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+        // $chart->dataset('New User Register Chart', 'line', $users)->options([
+        //     'fill' => 'true',
+        //     'borderColor' => '#51C1C0'
+        // ]);
+
+        
         $comments = Comment::where('user_id', Auth::user()->id)->orderBy('posted_at', 'desc')->paginate(10);
         return view('profile', [
-            'comments' => $comments
+            'comments' => $comments,
+            // 'chart' => $chart,
         ]);
     }
     

@@ -15,10 +15,13 @@ Route::get('/','CommentsController@index');
 //プロフィール画面
 Route::get('/profile','CommentsController@profile');
 
+//チャート
+// Route::get('chart', 'ChartController@index');
+
 //新規コメント登録画面へ移動
 Route::get('/commentup','CommentsController@upload')->name('upload');
 
-//新規コメント登録処理 
+//新規コメント登録処理
 Route::post('/comments/store','CommentsController@store');
 
 //コメント更新画面へ移動
